@@ -1,3 +1,8 @@
+#folders
+Data
+IMDb_venv
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
