@@ -29,7 +29,7 @@ def get_recommendation():
 
     elif language and year:
         recommendation = imdb_df[(imdb_df['language'].str.contains(language)) &
-            ( imdb_df['year'] == year)].sort_values(by='reviews_from_critics', ascending=False).head(1)[
+            (imdb_df['year'] == year)].sort_values(by='reviews_from_critics', ascending=False).head(1)[
             'original_title']
 
     elif language:
@@ -69,6 +69,7 @@ def get_know_user():
     name = input('What is your name?')
     age = input('What is your age?')
     user = User(name, age)
+    return user
 
 def get_preferences():
     global year
