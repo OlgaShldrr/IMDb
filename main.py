@@ -1,18 +1,23 @@
 import pandas as pd
 imdb_df = pd.read_csv('data\IMDb movies.csv', low_memory=False)
+from user import User
 
-def get_recommendation()
+def get_know_user():
+    name = input('What is your name?')
+    age = input('What is your age?')
+    user = User(name, age)
+
 
 def main():
     print("Movie recommendation program")
-    name = input('What is your name?')
-    print('Hi, ', name, '!')
-    #age
+    get_know_user()
+
+
     #time periodgit st
     #language
     genre = input('What is your favourite genre?')
     try:
-        get_recommendation(recommendation = imdb_df[imdb_df['genre'] == genre].sort_values(by='reviews_from_critics', ascending=False).head(1)[
+        recommendation = imdb_df[imdb_df['genre'] == genre].sort_values(by='reviews_from_critics', ascending=False).head(1)[
             'original_title']
         print("Here is our recommendation: ", recommendation)
     except Exception as e:
