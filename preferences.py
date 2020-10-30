@@ -3,31 +3,34 @@ class Preferences:
         self.name = name
         print("Finding a good movie for ", self.name)
 
-    def get_language(self):
+    def get_language():
+        global language
         language = input("What should be the original language?")
-        print("language") # change to return, this is for error handling
+        print(language) # change to return, this is for error handling
 
-    def get_year(self):
+    def get_year():
+        global year
         # expand later on
-        year = input("What year?")
+        year = int(input("What year?"))
 
-    def get_budget(self):
+    def get_budget():
         # classify later
         budget = input("What budget?")
 
-    def get_genre(self):
+    def get_genre():
+        global genre
         genre = input("What genre?")
 
-    def get_vote_type(self):
+    def get_vote_type():
         # from users or critics or their avg
         vote_type = input("Which vote type?")
 
-    def get_gross(self):
+    def get_gross():
         # usa gross or worldwide gross? separate columns
         # if want English lang film, then add USA gross or otherwise worldwide gross
         gross_amount = input("How much for minimum gross?")
 
-    def get_production_company(self):
+    def get_production_company():
         # like Disney
         prod_company = input("Are you looking for a movie from a specific production company?")
 
