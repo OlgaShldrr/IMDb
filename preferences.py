@@ -1,25 +1,16 @@
 class Preferences:
-    def __init__(self, name):
+    def __init__(self, name, language, year, genre):
         self.name = name
+        self.year = year
+        self.language = language
+        self.genre = genre
         print("Finding a good movie for ", self.name)
 
-    def get_language():
-        global language
-        language = input("What should be the original language?")
-        print(language) # change to return, this is for error handling
-
-    def get_year():
-        global year
-        # expand later on
-        year = int(input("What year?"))
 
     def get_budget():
         # classify later
         budget = input("What budget?")
 
-    def get_genre():
-        global genre
-        genre = input("What genre?")
 
     def get_vote_type():
         # from users or critics or their avg
@@ -36,5 +27,5 @@ class Preferences:
 
 # extras for later
 # director - see who are the top 10 directors or directors with more than X movies
-# genre is sometimes 3 types combined so right now those aren't picked up
+
 
