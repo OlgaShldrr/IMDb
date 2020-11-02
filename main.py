@@ -11,7 +11,6 @@ from preferences import Preferences
  #   writer.writerow((somelist))
 
 
-
 def get_genre(data_df, genres):
     genre_list = str(genres).split()
     genre_rec = data_df[data_df['genre'].isin(genre_list)]
