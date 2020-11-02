@@ -1,14 +1,22 @@
 import pandas as pd
 import inquirer
+from openpyxl import load_workbook
 imdb_df = pd.read_csv('data\IMDb movies.csv', low_memory=False)
 from User import User
 from preferences import Preferences
 
-#def get_log():
-#    fp = open('log.csv', 'wa')
- #   writer = csv.writer(fp)
- #   somelist = [name,age,genre,language,year,recommendation,rent]
- #   writer.writerow((somelist))
+def get_log():
+    file_in_out = 'log.xlsx'
+    wb = load_workbook(filename=file_in_out)
+    ws = wb['log']
+    last_row = ws.max_row
+    for col_idx, val in enumerate([name,age,genres,languages,years,get_recommendation(imdb_df)['original_title'].to_string(),rent]):
+        ws.cell(column=col_idx + 1, row=last_row + 1, value=val)
+    wb.save(file_in_out)
+    #fp = open('log.csv', 'wa')
+    #writer = csv.writer(fp)
+    #somelist = [name,age,genre,language,year,recommendation,rent]
+    #writer.writerow((somelist))
 
 
 def get_genre(data_df, genres):
@@ -66,7 +74,8 @@ def main():
     recommendation = get_recommendation(imdb_df)
     print("Here is our recommendation: ", recommendation)
     rent_option()
-    #get_log()
+    get_log()
+
 
 def get_know_user():
     global name
