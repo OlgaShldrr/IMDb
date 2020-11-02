@@ -51,6 +51,7 @@ def get_year(data_df, years):
     return year_rec
 
 
+
 def get_preferences(user):
     #global years
     #global genres
