@@ -1,7 +1,7 @@
 import pandas as pd
 import inquirer
 imdb_df = pd.read_csv('data\IMDb movies.csv', low_memory=False)
-from user import User
+from User import User
 from preferences import Preferences
 
 #def get_log():
@@ -10,43 +10,36 @@ from preferences import Preferences
  #   somelist = [name,age,genre,language,year,recommendation,rent]
  #   writer.writerow((somelist))
 
-def get_recommendation():
+
+
+def get_genre(data_df, genres):
+    genre_list = str(genres).split()
+    genre_rec = data_df[data_df['genre'].isin(genre_list)]
+    return genre_rec
+
+def get_language(data_df, languages):
+    language_list = str(languages).split()
+    lang_rec = data_df[data_df['language'].isin(language_list)]
+    return lang_rec
+
+def get_year(data_df, years):
+    year_list = str(years).split()
+    year_rec = data_df[data_df['year'].isin(year_list)]
+    return year_rec
+
+def get_recommendation(rec_df): # add argument, instead of line 33
     recommendation = []
-    if genre and language and year:
-        recommendation = imdb_df[(imdb_df['genre'].str.contains(genre)) & (imdb_df['language'].str.contains(language)) & (imdb_df['year']==year)].sort_values(by='reviews_from_critics', ascending=False).head(1)[
-            'original_title']
+    if genres:
+        rec_df = get_genre(rec_df, genres)
+    if languages:
+        rec_df = get_language(rec_df, languages)
+    if years:
+        rec_df = get_year(rec_df, years)
 
-    elif genre and language:
-        recommendation = imdb_df[
-            (imdb_df['genre'].str.contains(genre)) & (imdb_df['language'].str.contains(language))].sort_values(by='reviews_from_critics', ascending=False).head(1)[
-            'original_title']
+    # rec = rec_df.head(1)['original_title'] # if we want only the title
+    rec = rec_df.head(10)[['original_title', 'year', 'genre']] # check that the filtering worked
+    return rec
 
-    elif genre and year:
-        recommendation = imdb_df[
-            (imdb_df['genre'].str.contains(genre)) & (
-                        imdb_df['year'] == year)].sort_values(by='reviews_from_critics', ascending=False).head(1)[
-            'original_title']
-
-    elif language and year:
-        recommendation = imdb_df[(imdb_df['language'].str.contains(language)) &
-            (imdb_df['year'] == year)].sort_values(by='reviews_from_critics', ascending=False).head(1)[
-            'original_title']
-
-    elif language:
-        recommendation = imdb_df[imdb_df['language'].str.contains(language)].sort_values(by='reviews_from_critics',
-                                                                        ascending=False).head(1)[
-            'original_title']
-
-    elif year:
-        recommendation = imdb_df[imdb_df['year'].str.contains(year)].sort_values(by='reviews_from_critics',
-                                                                        ascending=False).head(1)[
-            'original_title']
-
-    elif genre:
-        recommendation = imdb_df[imdb_df['genre'].str.contains(genre)].sort_values(by='reviews_from_critics',
-                                                                        ascending=False).head(1)[
-            'original_title']
-    return recommendation
 
 def  rent_option():
     global rent
@@ -63,6 +56,19 @@ def  rent_option():
     else:
         print("Nevermind. Come back later!")
 
+
+
+def main():
+
+    print("Movie recommendation program")
+    get_know_user()
+    print("Let's figure out your movie preferences")
+    get_preferences()
+    recommendation = get_recommendation(imdb_df)
+    print("Here is our recommendation: ", recommendation)
+    rent_option()
+    #get_log()
+
 def get_know_user():
     global name
     global age
@@ -72,27 +78,14 @@ def get_know_user():
     return user
 
 def get_preferences():
-    global year
-    global genre
-    global language
-    year = input("What year?")
-    genre = input("What genre would you like to watch?")
-    language = input("What should be the original language?")
-    preferences = Preferences(name, language, year, genre)
+    global years
+    global genres
+    global languages
+    years = input("What year?")
+    genres = input("What genre would you like to watch?")
+    languages = input("What should be the original language?")
+    preferences = Preferences(name, languages, years, genres)
     return preferences
-
-
-def main():
-
-    print("Movie recommendation program")
-    get_know_user()
-    print("Let's figure out your movie preferences")
-    get_preferences()
-    recommendation = get_recommendation()
-    print("Here is our recommendation: ", recommendation)
-    rent_option()
-    #get_log()
-
 
 
 if __name__ == "__main__":
