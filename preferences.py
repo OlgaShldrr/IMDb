@@ -1,9 +1,10 @@
 class Preferences:
-    def __init__(self, name, languages, years, genres):
+    def __init__(self, name, languages, years, genres, ordering):
         self.name = name
         self.years = years
         self.languages = languages
         self.genres = genres
+        self.ordering = ordering
         print("Finding a good movie for ", self.name)
 
 
@@ -24,6 +25,10 @@ class Preferences:
     def get_production_company():
         # like Disney
         prod_company = input("Are you looking for a movie from a specific production company?")
+
+    def ordering_func():
+        order = input("question?")
+
 
 # extras for later
 # director - see who are the top 10 directors or directors with more than X movies
