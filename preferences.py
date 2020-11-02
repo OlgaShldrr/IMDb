@@ -1,9 +1,9 @@
 class Preferences:
-    def __init__(self, name, language, year, genre):
+    def __init__(self, name, languages, years, genres):
         self.name = name
-        self.year = year
-        self.language = language
-        self.genre = genre
+        self.years = years
+        self.languages = languages
+        self.genres = genres
         print("Finding a good movie for ", self.name)
 
 
