@@ -37,12 +37,13 @@ def get_preferences(user):
     return preferences
 
 
-def get_log(user, preferences):
+def get_log(user, preferences, recommendation):
     file_in_out = 'log.xlsx'
     wb = load_workbook(filename=file_in_out)
     ws = wb['log']
     last_row = ws.max_row
-    for col_idx, val in enumerate([user.name,user.age,preferences.genres,preferences.languages,preferences.years,get_recommendation(imdb_df, preferences).sort_values(by=ordering, ascending=False).head(1)['original_title'].to_string(),rent]):
+    for col_idx, val in enumerate([user.name,user.age,preferences.genres,preferences.languages,preferences.years,
+                                   recommendation.to_string(),rent]):
         ws.cell(column=col_idx + 1, row=last_row + 1, value=val)
     wb.save(file_in_out)
 
@@ -132,9 +133,9 @@ def main():
     print("Let's figure out your movie preferences")
     preferences = get_preferences(user)
     recommendation = get_recommendation(imdb_df, preferences)
-    print("Here is our recommendation: ", recommendation)
+    #print("Here is our recommendation: ", recommendation)
     rent_option()
-    get_log(user, preferences)
+    get_log(user, preferences, recommendation)
 
 
 
