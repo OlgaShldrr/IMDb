@@ -10,7 +10,7 @@ def get_log():
     wb = load_workbook(filename=file_in_out)
     ws = wb['log']
     last_row = ws.max_row
-    for col_idx, val in enumerate([name,age,genres,languages,years,get_recommendation(imdb_df)['original_title'].to_string(),rent]):
+    for col_idx, val in enumerate([name,age,genres,languages,years,get_recommendation(imdb_df).sort_values(by=ordering, ascending=False).head(1)['original_title'].to_string(),rent]):
         ws.cell(column=col_idx + 1, row=last_row + 1, value=val)
     wb.save(file_in_out)
     #fp = open('log.csv', 'wa')
@@ -76,6 +76,7 @@ def get_recommendation(rec_df): # add argument, instead of line 33
         print( "I found {} recommendation for you. Here's the one with the highest critics rating: ".format(len(rec_df.index)))
         #return rec_df.sort_values('year', ascending=False).head(1)[['original_title', 'year', 'genre', 'language']]
         print(rec_df.sort_values(by=ordering, ascending=False).head(1)[['original_title', 'year', 'genre', 'language']])
+    return rec_df
 
 def  rent_option():
     global rent
